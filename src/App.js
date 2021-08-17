@@ -1,7 +1,11 @@
-import "./App.css";
+import { Main } from "./components/container/main";
 
 function App() {
-  return <div className="App">11</div>;
+  return (
+    <div className="App">
+      <Main />
+    </div>
+  );
 }
 
 export default App;

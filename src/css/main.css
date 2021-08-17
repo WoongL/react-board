@@ -1,0 +1,24 @@
+.main {
+  text-align: center;
+}
+
+header {
+  background-color: red;
+  height: 15vh;
+}
+main {
+  display: flex;
+  justify-content: space-between;
+  min-height: 75vh;
+}
+aside {
+  background-color: rosybrown;
+  width: 10vw;
+}
+section {
+  width: 80vw;
+}
+footer {
+  background-color: green;
+  height: 10vh;
+}
