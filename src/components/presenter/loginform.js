@@ -1,22 +1,18 @@
 import { Link } from "react-router-dom";
 import "../../css/login.css";
-import { REDUCER_TYPE } from "../../utils/reducer";
+import { INPUTREDUCER_TYPE } from "../../utils/reducer";
 
-export function LoginForm({ name, pw, dispatch }) {
-  //   function onSignup(e) {
-  //     e.preventDefault();
-  //     //회원가입 페이지로
-  //   }
-  function onReset(e) {
+export function LoginForm({ name, pw, dispatch, onLogin }) {
+  function onSubmit(e) {
     e.preventDefault();
-
+    onLogin();
     //로그인 통신
 
-    dispatch({ type: REDUCER_TYPE.RESET });
+    dispatch({ type: INPUTREDUCER_TYPE.RESET });
   }
   function onChange(e) {
     const { name, value } = e.target;
-    dispatch({ type: REDUCER_TYPE.CHANGE, name, value });
+    dispatch({ type: INPUTREDUCER_TYPE.CHANGE, name, value });
   }
 
   return (
@@ -38,10 +34,10 @@ export function LoginForm({ name, pw, dispatch }) {
         />
         <br />
         <div className="loginButtons">
-          <button className="loginButton" onClick={onReset}>
+          <button className="loginButton" onClick={onSubmit}>
             로그인
           </button>
-          <Link to="/singh">
+          <Link to="/singup">
             <button className="loginButton">회원가입</button>
           </Link>
         </div>

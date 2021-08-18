@@ -1,5 +1,6 @@
 import { useReducer, useRef } from "react";
 import { inputReducer } from "../../utils/reducer";
+import { loginApi } from "../../utils/serverapi";
 import { LoginForm } from "../presenter/loginform";
 
 export function Login(params) {
@@ -10,5 +11,11 @@ export function Login(params) {
 
   const { name, pw } = inputs;
 
-  return <LoginForm name={name} pw={pw} dispatch={dispatch} />;
+  function onLogin() {
+    loginApi(inputs);
+  }
+
+  return (
+    <LoginForm name={name} pw={pw} dispatch={dispatch} onLogin={onLogin} />
+  );
 }

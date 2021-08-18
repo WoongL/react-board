@@ -8,7 +8,18 @@ export function Singup(params) {
     pw: "",
   });
   const { name, nickname, pw } = inputs;
+
+  function onSingup() {
+    console.log("onSingup");
+    console.log(inputs);
+  }
   return (
-    <SingupForm name={name} nickname={nickname} pw={pw} dispatch={dispatch} />
+    <SingupForm
+      name={name}
+      nickname={nickname}
+      pw={pw}
+      dispatch={dispatch}
+      onSingup={onSingup}
+    />
   );
 }

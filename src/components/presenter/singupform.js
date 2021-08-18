@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
 import "../../css/singup.css";
-import { REDUCER_TYPE } from "../../utils/reducer";
+import { INPUTREDUCER_TYPE } from "../../utils/reducer";
 
-export function SingupForm({ name, nickname, pw, dispatch }) {
-  function onReset(e) {
+export function SingupForm({ name, nickname, pw, dispatch, onSingup }) {
+  function onSubmit(e) {
     e.preventDefault();
 
-    //로그인 통신
+    onSingup();
 
-    dispatch({ type: REDUCER_TYPE.RESET });
+    dispatch({ type: INPUTREDUCER_TYPE.RESET });
   }
   function onChange(e) {
     const { name, value } = e.target;
-    dispatch({ type: REDUCER_TYPE.CHANGE, name, value });
+    dispatch({ type: INPUTREDUCER_TYPE.CHANGE, name, value });
   }
   return (
     <div className="singh">
@@ -40,7 +40,7 @@ export function SingupForm({ name, nickname, pw, dispatch }) {
         />
         <br />
         <div className="singhButtons">
-          <button className="singhButton" onClick={onReset}>
+          <button className="singhButton" onClick={onSubmit}>
             회원가입
           </button>
           <Link to="/login">

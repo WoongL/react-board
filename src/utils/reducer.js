@@ -1,4 +1,4 @@
-export const REDUCER_TYPE = { CHANGE: "CHANGE", RESET: "RESET" };
+export const INPUTREDUCER_TYPE = { CHANGE: "CHANGE", RESET: "RESET" };
 
 export function inputReducer(state, action) {
   switch (action.type) {
