@@ -2,12 +2,6 @@
   text-align: center;
 }
 
-header {
-  background-color: red;
-  height: 15vh;
-  display: flex;
-  justify-content: center;
-}
 main {
   display: flex;
   justify-content: space-between;

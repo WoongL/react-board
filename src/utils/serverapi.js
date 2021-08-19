@@ -9,7 +9,13 @@ const API_TYPE = {
 };
 
 //전체적으로 공용
-function commonApi({ url, apitype, object, thenCallback, catchCallback }) {
+function commonApi({
+  url,
+  apitype,
+  object,
+  thenCallback = (r) => {},
+  catchCallback = (e) => {},
+}) {
   switch (apitype) {
     case API_TYPE.GET:
       axios
@@ -56,17 +62,41 @@ function commonApi({ url, apitype, object, thenCallback, catchCallback }) {
   }
 }
 
-export function loginApi({ name, pw }) {
+export function loginApi(
+  { name, pw },
+  resultCallback,
+  errorCallback = (e) => {}
+) {
   const url = "login";
   const object = { name, pw };
   const thenCallback = (r) => {
-    console.log(r);
+    resultCallback(r);
+    // console.log(r);
   };
   const catchCallback = (e) => {
-    console.log(e);
+    errorCallback(e);
+    // console.log(e);
   };
   const apitype = API_TYPE.POST;
 
   commonApi({ url, apitype, object, thenCallback, catchCallback });
 }
-export function singupApi({ name, nickname, pw }) {}
+export function singupApi(
+  { name, nickname, pw },
+  resultCallback,
+  errorCallback = (e) => {}
+) {
+  const url = "singup";
+  const object = { name, nickname, pw };
+  const thenCallback = (r) => {
+    resultCallback(r);
+    // console.log(r);
+  };
+  const catchCallback = (e) => {
+    errorCallback(e);
+    // console.log(e);
+  };
+  const apitype = API_TYPE.POST;
+
+  commonApi({ url, apitype, object, thenCallback, catchCallback });
+}

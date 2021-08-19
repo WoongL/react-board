@@ -1,0 +1,32 @@
+header {
+  display: flex;
+  background-color: red;
+  height: 15vh;
+}
+.userinfo {
+  padding-top: 5vh;
+  background-color: white;
+  width: 10vw;
+}
+.toptail {
+  padding-top: 5vh;
+  background-color: white;
+  width: 10vw;
+}
+.topMenu {
+  width: 80vw;
+  display: flex;
+  justify-content: center;
+  padding: 5vh 0;
+  background-color: thistle;
+}
+.topbutton {
+  border: white 1px solid;
+  color: white;
+  background-color: black;
+  min-width: 100px;
+  margin: 0 10px;
+}
+.topbutton:hover {
+  background-color: grey;
+}

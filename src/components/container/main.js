@@ -1,46 +1,53 @@
-import axios from "axios";
-import { useEffect } from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Route, Switch } from "react-router-dom";
 import "../../css/main.css";
 import { Board } from "./board";
+import { Header } from "./header";
 import { Home } from "./home";
 import { Login } from "./login";
 import { Singup } from "./singup";
+import "antd/dist/antd.css";
+
+export const UserContext = React.createContext();
 
 export function Main() {
-  function menuButton(linkpath, buttonname) {
-    return (
-      <Link to={linkpath}>
-        <button>{buttonname}</button>
-      </Link>
-    );
-  }
+  const [userinfo, setUserinfo] = useState(null);
+
+  //userinfo init
+  useEffect(() => {
+    const id = localStorage.getItem("userinfo_id");
+
+    if (id) {
+      const nickname = localStorage.getItem("userinfo_nickname");
+      const authtoken = localStorage.getItem("userinfo_authtoken");
+
+      setUserinfo({ id, nickname, authtoken });
+    }
+  }, []);
 
   return (
     <div className="main">
-      <header>
-        <div className="topMenu">
-          {menuButton("/", "홈")}
-          {menuButton("/login", "로그인")}
-          {menuButton("/singup", "회원가입")}
-          {menuButton("/board/1", "게시판1")}
-          {menuButton("/board/2", "게시판2")}
-          {menuButton("/board/3", "게시판3")}
-        </div>
-      </header>
-      <main>
-        <aside>배너1</aside>
-        <section>
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/singup" component={Singup} />
-            <Route exact path="/board/:boardnumber" component={Board} />
-            <Route exact path="/" component={Home} />
-          </Switch>
-        </section>
-        <aside>배너2</aside>
-      </main>
-      <footer>연락처</footer>
+      <UserContext.Provider value={{ userinfo, setUserinfo }}>
+        <Header />
+        <main>
+          <aside>배너1</aside>
+          <section>
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/singup" component={Singup} />
+              <Route exact path="/board/:boardnumber" component={Board} />
+              <Route
+                exact
+                path="/board/:boardnumber/:issuenumber"
+                component={Board}
+              />
+              <Route exact path="/" component={Home} />
+            </Switch>
+          </section>
+          <aside>배너2</aside>
+        </main>
+        <footer>연락처</footer>
+      </UserContext.Provider>
     </div>
   );
 }

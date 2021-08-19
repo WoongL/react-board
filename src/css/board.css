@@ -1,0 +1,32 @@
+.board_content {
+  display: flex;
+  margin: 0 30px;
+  flex-wrap: wrap;
+}
+.issuecard {
+  border: 2px solid black;
+  height: 280px;
+  width: 180px;
+  margin: 30px 30px;
+}
+.issuecard:hover {
+  margin: 0px 30px;
+  transition: 400ms ease all;
+}
+.issueimg {
+  height: 30%;
+  background-color: skyblue;
+}
+.issuetext {
+  border-top: 1px solid black;
+  height: 70%;
+}
+.issue_title {
+  padding: 15px;
+  /* margin: 20px; */
+}
+.issue_description {
+  height: 40%;
+}
+.issue_date {
+}
