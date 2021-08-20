@@ -17,6 +17,7 @@
 }
 .singhform > input:focus {
   font-size: 15pt;
+  outline: none;
 }
 .singhButtons {
   margin: 8vh 0;

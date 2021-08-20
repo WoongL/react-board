@@ -17,6 +17,7 @@
 }
 .loginform > input:focus {
   font-size: 15pt;
+  outline: none;
 }
 .loginButtons {
   margin: 8vh 0;

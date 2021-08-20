@@ -23,10 +23,10 @@
 }
 .issue_title {
   padding: 15px;
-  /* margin: 20px; */
 }
 .issue_description {
   height: 40%;
 }
 .issue_date {
+  margin: 0px;
 }

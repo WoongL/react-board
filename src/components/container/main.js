@@ -7,6 +7,7 @@ import { Home } from "./home";
 import { Login } from "./login";
 import { Singup } from "./singup";
 import "antd/dist/antd.css";
+import { Issue } from "./issue";
 
 export const UserContext = React.createContext();
 
@@ -39,7 +40,7 @@ export function Main() {
               <Route
                 exact
                 path="/board/:boardnumber/:issuenumber"
-                component={Board}
+                component={Issue}
               />
               <Route exact path="/" component={Home} />
             </Switch>

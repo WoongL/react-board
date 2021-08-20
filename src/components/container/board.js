@@ -2,14 +2,13 @@ import { BoardForm } from "../presenter/boardform";
 import { IssueFrom } from "../presenter/issueform";
 
 export function Board(params) {
-  const { boardnumber, issuenumber } = params.match.params;
+  const { boardnumber } = params.match.params;
   return (
     <div>
-      <h1>{"게시판" + boardnumber + " 글 : " + issuenumber}</h1>
+      <h1>{"게시판" + boardnumber}</h1>
 
       <h2>내용</h2>
-      {!issuenumber && <BoardForm boardnumber={boardnumber} />}
-      {issuenumber && <IssueFrom issuenumber={issuenumber} />}
+      <BoardForm boardnumber={boardnumber} />
     </div>
   );
 }
