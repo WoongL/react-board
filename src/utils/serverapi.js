@@ -100,3 +100,9 @@ export function singupApi(
 
   commonApi({ url, apitype, object, thenCallback, catchCallback });
 }
+export function getBoardsApi(thenCallback) {
+  const url = "board";
+  const apitype = API_TYPE.GET;
+
+  commonApi({ url, apitype, thenCallback });
+}

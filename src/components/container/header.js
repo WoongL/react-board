@@ -1,11 +1,12 @@
 import "../../css/header.css";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "./main";
+import { BoardsContext, UserContext } from "./main";
 
 export function Header() {
   const userinfo = useContext(UserContext).userinfo;
   const setUserinfo = useContext(UserContext).setUserinfo;
+  const boards = useContext(BoardsContext);
 
   function userlogout() {
     localStorage.removeItem("userinfo_id");
@@ -16,13 +17,14 @@ export function Header() {
 
   function menuButton(linkpath, buttonname, onclickevent = () => {}) {
     return (
-      <Link to={linkpath}>
+      <Link to={linkpath} key={linkpath}>
         <button className="topbutton" onClick={onclickevent}>
           {buttonname}
         </button>
       </Link>
     );
   }
+
   return (
     <header>
       <div className="userinfo">
@@ -33,9 +35,11 @@ export function Header() {
         {!userinfo && menuButton("/login", "로그인")}
         {!userinfo && menuButton("/singup", "회원가입")}
         {userinfo && menuButton("/", "로그아웃", userlogout)}
-        {menuButton("/board/1", "게시판1")}
-        {menuButton("/board/2", "게시판2")}
-        {menuButton("/board/3", "게시판3")}
+
+        {boards &&
+          boards.map((board) => {
+            return menuButton(`/board/${board.id}`, board.name);
+          })}
       </div>
       <div className="toptail">광고배너</div>
     </header>
