@@ -106,3 +106,38 @@ export function getBoardsApi(thenCallback) {
 
   commonApi({ url, apitype, thenCallback });
 }
+export function getIssueApi({ boardid }, thenCallback) {
+  const url = "issue/" + boardid;
+  const apitype = API_TYPE.GET;
+
+  commonApi({ url, apitype, thenCallback });
+}
+export function postIssueApi(
+  { boardid, title, content, writer },
+  thenCallback,
+  catchCallback = (e) => {}
+) {
+  const url = "issue";
+  const object = { boardid, title, content, writer };
+  const apitype = API_TYPE.POST;
+
+  commonApi({ url, apitype, object, thenCallback, catchCallback });
+}
+
+export function getCommentApi({ issueid }, thenCallback) {
+  const url = "comment/" + issueid;
+  const apitype = API_TYPE.GET;
+
+  commonApi({ url, apitype, thenCallback });
+}
+export function postCommentApi(
+  { issueid, content, writer },
+  thenCallback,
+  catchCallback = (e) => {}
+) {
+  const url = "comment";
+  const object = { issueid, content, writer };
+  const apitype = API_TYPE.POST;
+
+  commonApi({ url, apitype, object, thenCallback, catchCallback });
+}

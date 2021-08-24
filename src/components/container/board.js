@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 import { inputReducer } from "../../utils/reducer";
+import { getIssueApi } from "../../utils/serverapi";
 import { BoardForm } from "../presenter/boardform";
 
 export function Board({ match }) {
@@ -20,7 +21,10 @@ export function Board({ match }) {
 
   useEffect(() => {
     //게사판의 화제 불러오는 로직
-  }, []);
+    getIssueApi({ boardid }, (result) => {
+      setIssue(result.data);
+    });
+  }, [boardid]);
 
   return (
     <BoardForm

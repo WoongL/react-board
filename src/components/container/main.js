@@ -48,7 +48,7 @@ export function Main() {
                 <Route exact path="/board/:boardid" component={Board} />
                 <Route
                   exact
-                  path="/board/:boardid/:issuenumber"
+                  path="/board/:boardid/:issueid"
                   component={Issue}
                 />
                 <Route exact path="/" component={Home} />
