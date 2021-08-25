@@ -1,4 +1,5 @@
 import { CommentForm } from "./commentform";
+import "../../css/input.css";
 import "../../css/issue.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
@@ -50,33 +51,38 @@ export function IssueFrom({
             <CommentForm
               writer={comment.writer}
               content={comment.content}
-              createdate={dayjs(comment.createdAt).format("YYYY년 MM월 DD일")}
+              createdate={dayjs(comment.createdAt).format(
+                "YYYY년 MM월 DD일 hh시 mm분 ss초"
+              )}
               key={comment.id}
             />
           );
         })}
       </div>
 
-      <div>
-        <br />
-        <br />
-        <form className="issuecreate">
+      <div className="commentwirtebox">
+        <form className="inputform issueinputform">
           <input
             name="content"
             onChange={onChange}
             placeholder="댓글을 입력해주세요"
             value={content}
+            autoComplete="off"
           />
           <br />
           <br />
-          <button className="issuecreate" onClick={onSubmit}>
-            작성
-          </button>
+          <div className="inputformButtons issueinputform">
+            <button
+              className="inputformButton issueinputform"
+              onClick={onSubmit}
+            >
+              작성
+            </button>
+          </div>
         </form>
-        <br />
-        <br />
       </div>
 
+      <br />
       <Link to={`/board/${boardid}`}>
         <button>{boardname}로 돌아가기</button>
       </Link>

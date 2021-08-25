@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import "../../css/input.css";
 import "../../css/login.css";
 import { INPUTREDUCER_TYPE } from "../../utils/reducer";
 
@@ -32,13 +33,14 @@ export function LoginForm({ name, pw, dispatch, onLogin }) {
   return (
     <div className="login">
       <h1>로그인</h1>
-      <form className="loginform">
+      <form className="inputform">
         <input
           name="name"
           onChange={onChange}
           placeholder="아이디를 입력해주세요"
           value={name}
           ref={idinputRef}
+          autoComplete="off"
         />
         <br />
         <input
@@ -47,14 +49,15 @@ export function LoginForm({ name, pw, dispatch, onLogin }) {
           placeholder="비밀번호를 입력해주세요"
           value={pw}
           ref={pwinputRef}
+          autoComplete="off"
         />
         <br />
-        <div className="loginButtons">
-          <button className="loginButton" onClick={onSubmit}>
+        <div className="inputformButtons">
+          <button className="inputformButton loginButton" onClick={onSubmit}>
             로그인
           </button>
           <Link to="/singup">
-            <button className="loginButton">회원가입</button>
+            <button className="inputformButton loginButton">회원가입</button>
           </Link>
         </div>
       </form>

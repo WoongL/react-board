@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import "../../css/input.css";
 import "../../css/singup.css";
 import { INPUTREDUCER_TYPE } from "../../utils/reducer";
 
@@ -36,7 +37,7 @@ export function SingupForm({ name, nickname, pw, dispatch, onSingup }) {
   return (
     <div className="singh">
       <h1>회원가입</h1>
-      <form className="singhform">
+      <form className="inputform">
         <input
           name="name"
           onChange={onChange}
@@ -51,6 +52,7 @@ export function SingupForm({ name, nickname, pw, dispatch, onSingup }) {
           placeholder="닉네임을 입력해주세요"
           value={nickname}
           ref={nicknameRef}
+          autoComplete="off"
         />
         <br />
         <input
@@ -59,14 +61,17 @@ export function SingupForm({ name, nickname, pw, dispatch, onSingup }) {
           placeholder="비밀번호를 입력해주세요"
           value={pw}
           ref={pwinputRef}
+          autoComplete="off"
         />
         <br />
-        <div className="singhButtons">
-          <button className="singhButton" onClick={onSubmit}>
+        <div className="inputformButtons">
+          <button className="inputformButton singupButton" onClick={onSubmit}>
             회원가입
           </button>
           <Link to="/login">
-            <button className="singhButton">로그인하러가기</button>
+            <button className="inputformButton singupButton">
+              로그인하러가기
+            </button>
           </Link>
         </div>
       </form>

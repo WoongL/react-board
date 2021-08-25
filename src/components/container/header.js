@@ -17,7 +17,7 @@ export function Header() {
 
   function menuButton(linkpath, buttonname, onclickevent = () => {}) {
     return (
-      <Link to={linkpath} key={linkpath}>
+      <Link to={linkpath} key={buttonname}>
         <button className="topbutton" onClick={onclickevent}>
           {buttonname}
         </button>

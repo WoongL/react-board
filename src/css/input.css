@@ -1,0 +1,58 @@
+.inputform {
+  margin: 10vh 0;
+}
+.inputform > input {
+  border: none;
+  border-bottom: solid 1px #ccc;
+  padding: 20px 0px 5px 0px;
+  font-size: 12pt;
+  width: 40%;
+}
+.inputform > input:focus {
+  font-size: 15pt;
+  outline: none;
+}
+/* .inputform > input: { 
+} */
+.inputformButtons {
+  margin: 8vh 0;
+}
+
+.inputformButton {
+  background: skyblue;
+  color: #fff;
+  border: none;
+  position: relative;
+  height: 60px;
+  font-size: 30px;
+  margin: 0 20px;
+  cursor: pointer;
+  transition: 800ms ease all;
+  outline: none;
+}
+.inputformButton:hover {
+  background: #fff;
+  color: skyblue;
+}
+.inputformButton:before,
+.inputformButton:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 2px;
+  width: 0;
+  background: skyblue;
+  transition: 400ms ease all;
+}
+.inputformButton:after {
+  right: inherit;
+  top: inherit;
+  left: 0;
+  bottom: 0;
+}
+.inputformButton:hover:before,
+.inputformButton:hover:after {
+  width: 100%;
+  transition: 800ms ease all;
+}

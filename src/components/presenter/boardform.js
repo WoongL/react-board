@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "../../css/input.css";
 import "../../css/board.css";
 import { INPUTREDUCER_TYPE } from "../../utils/reducer";
 import { BoardsContext } from "../container/main";
@@ -14,13 +15,17 @@ export function BoardForm({
 }) {
   const [isWrite, setIsWrite] = useState(false);
   const boards = useContext(BoardsContext);
-  const { name, content } = inputs;
+  const { title, content } = inputs;
 
   const boardname =
     boards &&
     boards.map((board) => {
       if (boardid == board.id) return board.name;
     });
+
+  useEffect(() => {
+    setIsWrite(false);
+  }, [boardid, issues]);
 
   function issueCard(issue) {
     const { id, title, content, createdAt } = issue;
@@ -61,12 +66,13 @@ export function BoardForm({
         <div>
           <br />
           <br />
-          <form className="issuecreate">
+          <form className="inputform">
             <input
-              name="name"
+              name="title"
               onChange={onChange}
               placeholder="화제거리의 제목을 입력해주세요"
-              value={name}
+              value={title}
+              autoComplete="off"
             />
             <br />
             <br />
@@ -75,13 +81,21 @@ export function BoardForm({
               onChange={onChange}
               placeholder="화제의 내용을 입력해주세요"
               value={content}
+              autoComplete="off"
             />
             <br />
             <br />
-            <button className="issuecreate" onClick={onSubmit}>
-              작성
-            </button>
-            <button onClick={() => setIsWrite(false)}>취소</button>
+            <div className="inputbuttons">
+              <button className="inputformButton" onClick={onSubmit}>
+                작성
+              </button>
+              <button
+                className="inputformButton"
+                onClick={() => setIsWrite(false)}
+              >
+                취소
+              </button>
+            </div>
           </form>
         </div>
       ) : (

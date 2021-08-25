@@ -5,59 +5,15 @@
 .login > h1 {
   font-size: 40px;
 }
-.loginform {
-  margin: 10vh 0;
-}
-.loginform > input {
-  border: none;
-  border-bottom: solid 1px #ccc;
-  padding: 20px 0px 5px 0px;
-  font-size: 12pt;
-  width: 40%;
-}
-.loginform > input:focus {
-  font-size: 15pt;
-  outline: none;
-}
-.loginButtons {
-  margin: 8vh 0;
-}
 
 .loginButton {
-  background: skyblue;
-  color: #fff;
-  border: none;
-  position: relative;
-  height: 60px;
-  font-size: 30px;
-  margin: 0 20px;
-  cursor: pointer;
-  transition: 800ms ease all;
-  outline: none;
+  background: coral;
 }
 .loginButton:hover {
   background: #fff;
-  color: skyblue;
+  color: coral;
 }
 .loginButton:before,
 .loginButton:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 2px;
-  width: 0;
-  background: skyblue;
-  transition: 400ms ease all;
-}
-.loginButton:after {
-  right: inherit;
-  top: inherit;
-  left: 0;
-  bottom: 0;
-}
-.loginButton:hover:before,
-.loginButton:hover:after {
-  width: 100%;
-  transition: 800ms ease all;
+  background: coral;
 }
