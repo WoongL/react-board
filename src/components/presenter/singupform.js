@@ -43,6 +43,7 @@ export function SingupForm({ name, nickname, pw, dispatch, onSingup }) {
           onChange={onChange}
           placeholder="아이디를 입력해주세요"
           value={name}
+          autoComplete="off"
           ref={idinputRef}
         />
         <br />
@@ -59,6 +60,7 @@ export function SingupForm({ name, nickname, pw, dispatch, onSingup }) {
           name="pw"
           onChange={onChange}
           placeholder="비밀번호를 입력해주세요"
+          type="password"
           value={pw}
           ref={pwinputRef}
           autoComplete="off"

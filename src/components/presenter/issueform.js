@@ -1,19 +1,21 @@
-import { CommentForm } from "./commentform";
 import "../../css/input.css";
 import "../../css/issue.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { BoardsContext } from "../container/main";
-import dayjs from "dayjs";
+
 import { INPUTREDUCER_TYPE } from "../../utils/reducer";
+import { Comment } from "../container/comment";
 
 export function IssueFrom({
-  issueid,
   comments,
   boardid,
   inputs,
   dispatch,
   oncommentcreate,
+  ondelete,
+  issueinfo,
+  commentDelete,
 }) {
   const boards = useContext(BoardsContext);
   const { content } = inputs;
@@ -35,25 +37,29 @@ export function IssueFrom({
     oncommentcreate();
   };
 
+  const onDelete = (e) => {
+    ondelete();
+  };
+
   return (
     <div className="issue">
       <h1>{boardname}</h1>
 
-      <h1>{"글 : " + issueid}</h1>
+      <h1>{`제목 : ${issueinfo.title}`}</h1>
+      <br />
 
-      <h2>내용</h2>
+      <h2>{`작성자 : ${issueinfo.writer}`}</h2>
+      <br />
+      <br />
 
-      <div>{issueid}</div>
+      <h2>{`내용 : ${issueinfo.content}`}</h2>
 
       <div className="issue_commentlist">
         {comments.map((comment) => {
           return (
-            <CommentForm
-              writer={comment.writer}
-              content={comment.content}
-              createdate={dayjs(comment.createdAt).format(
-                "YYYY년 MM월 DD일 hh시 mm분 ss초"
-              )}
+            <Comment
+              comment={comment}
+              commentDelete={commentDelete}
               key={comment.id}
             />
           );
@@ -83,6 +89,7 @@ export function IssueFrom({
       </div>
 
       <br />
+      {ondelete && <button onClick={onDelete}>삭제하기</button>}
       <Link to={`/board/${boardid}`}>
         <button>{boardname}로 돌아가기</button>
       </Link>

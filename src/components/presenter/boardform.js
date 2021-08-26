@@ -28,7 +28,7 @@ export function BoardForm({
   }, [boardid, issues]);
 
   function issueCard(issue) {
-    const { id, title, content, createdAt } = issue;
+    const { id, title, content, writer, createdAt } = issue;
 
     return (
       <Link to={`/board/${boardid}/${id}`} key={id}>
@@ -36,6 +36,7 @@ export function BoardForm({
           <div className="issueimg"></div>
           <div className="issuetext">
             <h1 className="issue_title">{title}</h1>
+            <h3 className="issue_writer">{`작성자 : ${writer}`}</h3>
             <h3 className="issue_description">{content}</h3>
             <h3 className="issue_date">
               {dayjs(createdAt).format("YYYY년 MM월 DD일")}

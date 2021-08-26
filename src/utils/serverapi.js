@@ -123,6 +123,19 @@ export function postIssueApi(
 
   commonApi({ url, apitype, object, thenCallback, catchCallback });
 }
+export function getIssueInfoApi({ boardid, issueid }, thenCallback) {
+  const url = `issue/${boardid}/${issueid}`;
+  const apitype = API_TYPE.GET;
+
+  commonApi({ url, apitype, thenCallback });
+}
+
+export function deleteIssueApi({ issueid }, thenCallback) {
+  const url = `issue/${issueid}`;
+  const apitype = API_TYPE.DELETE;
+
+  commonApi({ url, apitype, thenCallback });
+}
 
 export function getCommentApi({ issueid }, thenCallback) {
   const url = "comment/" + issueid;
@@ -140,4 +153,11 @@ export function postCommentApi(
   const apitype = API_TYPE.POST;
 
   commonApi({ url, apitype, object, thenCallback, catchCallback });
+}
+
+export function deleteCommentApi({ commentid }, thenCallback) {
+  const url = `comment/${commentid}`;
+  const apitype = API_TYPE.DELETE;
+
+  commonApi({ url, apitype, thenCallback });
 }

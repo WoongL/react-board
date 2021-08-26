@@ -1,7 +1,13 @@
 import { message } from "antd";
 import { useContext, useEffect, useReducer, useState } from "react";
 import { inputReducer, INPUTREDUCER_TYPE } from "../../utils/reducer";
-import { getCommentApi, postCommentApi } from "../../utils/serverapi";
+import {
+  deleteCommentApi,
+  deleteIssueApi,
+  getCommentApi,
+  getIssueInfoApi,
+  postCommentApi,
+} from "../../utils/serverapi";
 import { IssueFrom } from "../presenter/issueform";
 import { UserContext } from "./main";
 
@@ -12,18 +18,28 @@ export function Issue({ match, history }) {
   });
   const userinfo = useContext(UserContext).userinfo;
   const [comments, setComment] = useState([]);
+  const [issueinfo, setIssueInfo] = useState();
 
   useEffect(() => {
+    getIssueInfoApi({ boardid, issueid }, (result) => {
+      setIssueInfo(result.data);
+    });
     getCommentApi({ issueid }, (result) => {
       setComment(result.data);
     });
   }, [issueid]);
+
+  if (issueinfo == null) return <div></div>;
 
   const oncommentcreate = (r) => {
     if (userinfo == null) {
       message.error("댓글쓰기는 회원만 가능합니다");
       history.push("/login");
     } else {
+      if (inputs.content == "") {
+        message.warning("댓글내용을 입력해주세요");
+        return;
+      }
       postCommentApi(
         { issueid, content: inputs.content, writer: userinfo.nickname },
         () => {
@@ -37,14 +53,38 @@ export function Issue({ match, history }) {
     }
   };
 
+  const commentDelete = (commentid) => {
+    deleteCommentApi({ commentid }, () => {
+      getCommentApi({ issueid }, (result) => {
+        message.success("댓글이 삭제되었습니다");
+        setComment(result.data);
+      });
+    });
+  };
+
+  const isWriter =
+    userinfo && userinfo.nickname == issueinfo.writer ? "정답" : null;
+
+  //이슈작성자면 삭제버튼 활성화 및 기능구현
+  const ondelete =
+    isWriter &&
+    ((e) => {
+      deleteIssueApi({ issueid }, () => {
+        message.success("화제거리가 삭제되었습니다");
+        history.push(`/board/${boardid}`);
+      });
+    });
+
   return (
     <IssueFrom
       boardid={boardid}
-      issueid={issueid}
+      issueinfo={issueinfo}
       comments={comments}
       inputs={inputs}
       dispatch={dispatch}
       oncommentcreate={oncommentcreate}
+      ondelete={ondelete}
+      commentDelete={commentDelete}
     />
   );
 }

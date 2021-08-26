@@ -47,6 +47,7 @@ export function LoginForm({ name, pw, dispatch, onLogin }) {
           name="pw"
           onChange={onChange}
           placeholder="비밀번호를 입력해주세요"
+          type="password"
           value={pw}
           ref={pwinputRef}
           autoComplete="off"

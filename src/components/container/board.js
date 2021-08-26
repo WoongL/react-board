@@ -21,6 +21,12 @@ export function Board({ match, history }) {
       message.error("화제거리를 작성은 회원만 가능합니다");
       history.push("/login");
     } else {
+      if (inputs.title == "" || inputs.content == "") {
+        message.warning(
+          `${inputs.title == "" ? "제목" : "내용"}을 입력해주세요`
+        );
+        return;
+      }
       postIssueApi(
         {
           boardid,

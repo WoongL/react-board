@@ -21,9 +21,10 @@
   border-top: 1px solid black;
   height: 70%;
 }
-.issue_title {
-  padding: 15px;
+/* .issue_title {
 }
+.issue_writer {
+} */
 .issue_description {
   height: 40%;
 }
