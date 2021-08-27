@@ -1,13 +1,15 @@
 import { message } from "antd";
 import { useContext, useEffect, useReducer, useState } from "react";
-import { inputReducer } from "../../utils/reducer";
+import { inputReducer, INPUTREDUCER_TYPE } from "../../utils/reducer";
 import { getIssueApi, postIssueApi } from "../../utils/serverapi";
 import { BoardForm } from "../presenter/boardform";
+import { IssueInputForm } from "../presenter/issueinputform";
 import { UserContext } from "./main";
 
 export function Board({ match, history }) {
   const { boardid } = match.params;
   const userinfo = useContext(UserContext).userinfo;
+  const [isWrite, setIsWrite] = useState(false);
 
   const [inputs, dispatch] = useReducer(inputReducer, {
     title: "",
@@ -37,6 +39,7 @@ export function Board({ match, history }) {
         () => {
           getIssueApi({ boardid }, (result) => {
             setIssue(result.data);
+            setIsWrite(false);
             message.success("화제거리가 작성되었습니다");
           });
         }
@@ -52,13 +55,28 @@ export function Board({ match, history }) {
     });
   }, [boardid]);
 
-  return (
+  function onSubmit(e) {
+    e.preventDefault();
+
+    onissuecreate();
+  }
+
+  return isWrite ? (
+    <IssueInputForm
+      inputs={inputs}
+      dispatch={dispatch}
+      onSubmit={onSubmit}
+      onCancel={() => setIsWrite(false)}
+    />
+  ) : (
     <BoardForm
       issues={issues}
       boardid={boardid}
-      inputs={inputs}
-      dispatch={dispatch}
-      onissuecreate={onissuecreate}
+      setIsWrite={() => {
+        dispatch({ type: INPUTREDUCER_TYPE.RESET });
+
+        setIsWrite(true);
+      }}
     />
   );
 }

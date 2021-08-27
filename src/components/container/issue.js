@@ -7,8 +7,10 @@ import {
   getCommentApi,
   getIssueInfoApi,
   postCommentApi,
+  putIssueApi,
 } from "../../utils/serverapi";
 import { IssueFrom } from "../presenter/issueform";
+import { IssueInputForm } from "../presenter/issueinputform";
 import { UserContext } from "./main";
 
 export function Issue({ match, history }) {
@@ -16,9 +18,14 @@ export function Issue({ match, history }) {
   const [inputs, dispatch] = useReducer(inputReducer, {
     content: "",
   });
+  const [issueupdateinputs, issueupdatedispatch] = useReducer(inputReducer, {
+    title: "",
+    content: "",
+  });
   const userinfo = useContext(UserContext).userinfo;
   const [comments, setComment] = useState([]);
   const [issueinfo, setIssueInfo] = useState();
+  const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
     getIssueInfoApi({ boardid, issueid }, (result) => {
@@ -74,8 +81,39 @@ export function Issue({ match, history }) {
         history.push(`/board/${boardid}`);
       });
     });
+  const onIssueUpdate = (e) => {
+    e.preventDefault();
+    const { title, content } = issueupdateinputs;
 
-  return (
+    if (title == "" || content == "") {
+      message.warning(`${title == "" ? "제목" : "내용"}을 입력해주세요`);
+      return;
+    }
+
+    putIssueApi(
+      {
+        issueid,
+        title,
+        content,
+      },
+      () => {
+        getIssueInfoApi({ boardid, issueid }, (result) => {
+          message.success("이슈가 수정되었습니다");
+          setIssueInfo(result.data);
+          setIsUpdate(false);
+        });
+      }
+    );
+  };
+
+  return isUpdate ? (
+    <IssueInputForm
+      inputs={issueupdateinputs}
+      dispatch={issueupdatedispatch}
+      onSubmit={onIssueUpdate}
+      onCancel={() => setIsUpdate(false)}
+    />
+  ) : (
     <IssueFrom
       boardid={boardid}
       issueinfo={issueinfo}
@@ -85,6 +123,10 @@ export function Issue({ match, history }) {
       oncommentcreate={oncommentcreate}
       ondelete={ondelete}
       commentDelete={commentDelete}
+      setIsUpdate={() => {
+        issueupdatedispatch({ type: INPUTREDUCER_TYPE.RESET });
+        setIsUpdate(true);
+      }}
     />
   );
 }

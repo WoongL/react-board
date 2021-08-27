@@ -130,6 +130,14 @@ export function getIssueInfoApi({ boardid, issueid }, thenCallback) {
   commonApi({ url, apitype, thenCallback });
 }
 
+export function putIssueApi({ issueid, title, content }, thenCallback) {
+  const url = `issue/${issueid}`;
+  const object = { title, content };
+  const apitype = API_TYPE.PUT;
+
+  commonApi({ url, apitype, object, thenCallback });
+}
+
 export function deleteIssueApi({ issueid }, thenCallback) {
   const url = `issue/${issueid}`;
   const apitype = API_TYPE.DELETE;

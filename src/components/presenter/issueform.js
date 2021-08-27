@@ -16,6 +16,7 @@ export function IssueFrom({
   ondelete,
   issueinfo,
   commentDelete,
+  setIsUpdate,
 }) {
   const boards = useContext(BoardsContext);
   const { content } = inputs;
@@ -90,6 +91,7 @@ export function IssueFrom({
 
       <br />
       {ondelete && <button onClick={onDelete}>삭제하기</button>}
+      {ondelete && <button onClick={setIsUpdate}>수정하기</button>}
       <Link to={`/board/${boardid}`}>
         <button>{boardname}로 돌아가기</button>
       </Link>
