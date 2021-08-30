@@ -1,5 +1,6 @@
 import { message } from "antd";
 import { useContext, useEffect, useReducer, useState } from "react";
+import { Link } from "react-router-dom";
 import { inputReducer, INPUTREDUCER_TYPE } from "../../utils/reducer";
 import {
   deleteCommentApi,
@@ -9,9 +10,10 @@ import {
   postCommentApi,
   putIssueApi,
 } from "../../utils/serverapi";
+import { CommentInputForm } from "../presenter/commentinputform";
 import { IssueFrom } from "../presenter/issueform";
 import { IssueInputForm } from "../presenter/issueinputform";
-import { UserContext } from "./main";
+import { BoardsContext, UserContext } from "./main";
 
 export function Issue({ match, history }) {
   const { boardid, issueid } = match.params;
@@ -26,6 +28,14 @@ export function Issue({ match, history }) {
   const [comments, setComment] = useState([]);
   const [issueinfo, setIssueInfo] = useState();
   const [isUpdate, setIsUpdate] = useState(false);
+
+  const boards = useContext(BoardsContext);
+
+  const boardname =
+    boards &&
+    boards.map((board) => {
+      if (boardid == board.id) return board.name;
+    });
 
   useEffect(() => {
     getIssueInfoApi({ boardid, issueid }, (result) => {
@@ -114,19 +124,29 @@ export function Issue({ match, history }) {
       onCancel={() => setIsUpdate(false)}
     />
   ) : (
-    <IssueFrom
-      boardid={boardid}
-      issueinfo={issueinfo}
-      comments={comments}
-      inputs={inputs}
-      dispatch={dispatch}
-      oncommentcreate={oncommentcreate}
-      ondelete={ondelete}
-      commentDelete={commentDelete}
-      setIsUpdate={() => {
-        issueupdatedispatch({ type: INPUTREDUCER_TYPE.RESET });
-        setIsUpdate(true);
-      }}
-    />
+    <div>
+      <IssueFrom
+        boardid={boardid}
+        issueinfo={issueinfo}
+        comments={comments}
+        ondelete={ondelete}
+        commentDelete={commentDelete}
+        setIsUpdate={() => {
+          issueupdatedispatch({ type: INPUTREDUCER_TYPE.RESET });
+          setIsUpdate(true);
+        }}
+      />
+      <CommentInputForm
+        inputs={inputs}
+        dispatch={dispatch}
+        oncommentcreate={oncommentcreate}
+      />
+      <br />
+      <Link to={`/board/${boardid}`}>
+        <button>{boardname}로 돌아가기</button>
+      </Link>
+      <br />
+      <br />
+    </div>
   );
 }

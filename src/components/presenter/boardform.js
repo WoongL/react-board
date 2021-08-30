@@ -49,6 +49,7 @@ export function BoardForm({ boardid, issues, setIsWrite }) {
         >
           작성
         </button>
+
         <br />
         <br />
       </div>

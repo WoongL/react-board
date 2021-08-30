@@ -106,8 +106,8 @@ export function getBoardsApi(thenCallback) {
 
   commonApi({ url, apitype, thenCallback });
 }
-export function getIssueApi({ boardid }, thenCallback) {
-  const url = "issue/" + boardid;
+export function getIssueApi({ boardid, page = 1 }, thenCallback) {
+  const url = "issue/" + boardid + "?page=" + page;
   const apitype = API_TYPE.GET;
 
   commonApi({ url, apitype, thenCallback });

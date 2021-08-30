@@ -1,12 +1,14 @@
 import { message } from "antd";
 import { useContext, useEffect, useReducer, useState } from "react";
+import { QureyString } from "../../utils/qureystring";
 import { inputReducer, INPUTREDUCER_TYPE } from "../../utils/reducer";
 import { getIssueApi, postIssueApi } from "../../utils/serverapi";
 import { BoardForm } from "../presenter/boardform";
+import { BoardPaging } from "../presenter/boardpaging";
 import { IssueInputForm } from "../presenter/issueinputform";
 import { UserContext } from "./main";
 
-export function Board({ match, history }) {
+export function Board({ match, history, location }) {
   const { boardid } = match.params;
   const userinfo = useContext(UserContext).userinfo;
   const [isWrite, setIsWrite] = useState(false);
@@ -17,6 +19,7 @@ export function Board({ match, history }) {
   });
 
   const [issues, setIssue] = useState([]);
+  const [pagecount, setPageCount] = useState();
 
   const onissuecreate = () => {
     if (userinfo == null) {
@@ -37,23 +40,31 @@ export function Board({ match, history }) {
           writer: userinfo.nickname,
         },
         () => {
-          getIssueApi({ boardid }, (result) => {
-            setIssue(result.data);
+          loadIssueData(() => {
             setIsWrite(false);
             message.success("화제거리가 작성되었습니다");
           });
         }
       );
     }
-    //화제거리 생성 처리
   };
 
-  useEffect(() => {
-    //게사판의 화제 불러오는 로직
-    getIssueApi({ boardid }, (result) => {
-      setIssue(result.data);
+  function loadIssueData(callback) {
+    const query = QureyString(location);
+
+    getIssueApi({ boardid, page: query.page }, (result) => {
+      const data = result.data;
+      setIssue(data.issue);
+      setPageCount(Math.ceil(data.count.count / 18));
+
+      console.log(data);
+      callback();
     });
-  }, [boardid]);
+  }
+
+  useEffect(() => {
+    loadIssueData();
+  }, [boardid, location]);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -69,14 +80,16 @@ export function Board({ match, history }) {
       onCancel={() => setIsWrite(false)}
     />
   ) : (
-    <BoardForm
-      issues={issues}
-      boardid={boardid}
-      setIsWrite={() => {
-        dispatch({ type: INPUTREDUCER_TYPE.RESET });
-
-        setIsWrite(true);
-      }}
-    />
+    <div>
+      <BoardForm
+        issues={issues}
+        boardid={boardid}
+        setIsWrite={() => {
+          dispatch({ type: INPUTREDUCER_TYPE.RESET });
+          setIsWrite(true);
+        }}
+      />
+      <BoardPaging boardid={boardid} pagecount={pagecount} />
+    </div>
   );
 }
