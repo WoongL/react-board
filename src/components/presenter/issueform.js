@@ -1,5 +1,6 @@
 import "../../css/issue.css";
 import { Comment } from "../container/comment";
+import { IssueDetailForm } from "./issuedetailform";
 
 export function IssueFrom({
   comments,
@@ -14,14 +15,7 @@ export function IssueFrom({
 
   return (
     <div className="issue">
-      <h1>{`제목 : ${issueinfo.title}`}</h1>
-      <br />
-
-      <h2>{`작성자 : ${issueinfo.writer}`}</h2>
-      <br />
-      <br />
-
-      <h2>{`내용 : ${issueinfo.content}`}</h2>
+      <IssueDetailForm issueinfo={issueinfo} />
 
       <div className="issue_commentlist">
         {comments.map((comment) => {

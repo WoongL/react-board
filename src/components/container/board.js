@@ -57,7 +57,6 @@ export function Board({ match, history, location }) {
       setIssue(data.issue);
       setPageCount(Math.ceil(data.count.count / 18));
 
-      console.log(data);
       callback();
     });
   }

@@ -24,7 +24,9 @@ export function BoardForm({ boardid, issues, setIsWrite }) {
           <div className="issuetext">
             <h1 className="issue_title">{title}</h1>
             <h3 className="issue_writer">{`작성자 : ${writer}`}</h3>
-            <h3 className="issue_description">{content}</h3>
+            <h3 className="issue_description">
+              {content.length > 20 ? content.substr(0, 20) + "..." : content}
+            </h3>
             <h3 className="issue_date">
               {dayjs(createdAt).format("YYYY년 MM월 DD일")}
             </h3>

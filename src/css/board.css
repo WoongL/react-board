@@ -27,6 +27,9 @@
 } */
 .issue_description {
   height: 40%;
+  word-wrap: break-word;
+  text-align: start;
+  padding: 8px;
 }
 .issue_date {
   margin: 0px;
